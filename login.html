@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Marina Fleet — Sign In / Create Account</title>
+  <style>
+        /* ------------------------------ Base Styles ------------------------------ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            background: linear-gradient(135deg , #007bff,#00d4ff);
+            color: #001f3f;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ------------------------------ Glass NavBar ------------------------------ */
+        nav {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 0.6rem 1.5rem;
+            position: fixed;
+            width: 80%;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 1.5rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+            object-fit: contain;
+            border: 2px solid white;
+            transition: border 0.3s ease;
+        }
+
+        .logo img:hover {
+            border: 2px solid black;
+        }
+
+        .logo h1 {
+            color: rgb(49, 43, 48);
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Navigation list - desktop */
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-menu li a {
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+            background: linear-gradient(90deg, #1c03ff, #05428d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: rgb(39, 28, 28);
+            bottom: 0;
+            left: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu li a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Hamburger button (hidden on desktop) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            width: 36px;
+            height: 36px;
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: #001f3f;
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.25s ease;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+
+
+    :root{
+      --bg:#eef7fb;
+      --card:#ffffff;
+      --muted:#6b7b8a;
+      --accent-1:#0077ff;
+      --accent-2:#0060d6;
+      --input-bg:#f3f8fc;
+      --success:#0bb27a;
+      --danger:#d64545;
+      --shadow: 0 6px 20px rgba(11,40,80,0.08);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;margin:0;background:var(--bg);color:#0f1724;}
+    .page{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:36px;
+      position:relative;
+      overflow:hidden;
+    }
+    .brand {
+      position: absolute;
+      left:24px;
+      top:20px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .brand .logo {
+      width:44px;height:44px;border-radius:10px;background:linear-gradient(180deg,var(--accent-1),var(--accent-2));
+      display:grid;place-items:center;color:#fff;font-weight:700;
+      box-shadow: 0 6px 18px rgba(3,57,150,0.12);
+    }
+    .brand b{font-size:18px;color:#0b2540; font-weight:600;}
+
+    /* container */
+    .card {
+      width:100%;
+      max-width:700px;
+      background:var(--card);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      padding:26px;
+      box-sizing:border-box;
+      position:relative;
+      z-index:2;
+      overflow:hidden;
+    }
+
+    .wrap {
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    /* toggle header */
+    .switcher {
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      margin-bottom:6px;
+      align-items:center;
+    }
+    .tab {
+      padding:8px 14px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:600;
+      color:var(--muted);
+      user-select:none;
+    }
+    .tab.active {
+      background:linear-gradient(90deg,var(--accent-1),var(--accent-2));
+      color:#fff;
+      box-shadow:0 8px 22px rgba(2,94,255,0.10);
+    }
+
+    .hero {
+      text-align:center;
+      margin-bottom:8px;
+    }
+    .avatar {
+      width:68px;height:68px;border-radius:50%;background:linear-gradient(180deg,#0ea5ff,#0068d4);
+      display:inline-grid;place-items:center;margin:0 auto 8px;color:#fff;font-size:26px;
+      box-shadow: 0 6px 18px rgba(3,57,150,0.12);
+    }
+    h1{font-size:22px;margin:4px 0 4px;text-align:center;}
+    p.sub {margin:0 0 12px;color:var(--muted);text-align:center;font-size:13px;}
+
+    /* forms container: we will slide between forms */
+    .forms {
+      position:relative;
+      overflow:hidden;
+      height:auto;
+    }
+    .panels {
+      display:flex;
+      width:200%;
+      transition:transform .45s cubic-bezier(.2,.9,.2,1);
+    }
+    .panel {
+      width:50%;
+      padding-right:22px;
+      box-sizing:border-box;
+    }
+
+    /* form elements */
+    form {display:block;}
+    .field {margin-bottom:12px;}
+    label {display:block;margin-bottom:8px;font-size:13px;color:#263644;font-weight:600;}
+    .input {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:var(--input-bg);
+      border-radius:10px;
+      padding:10px 12px;
+      border:1px solid transparent;
+      transition:box-shadow .18s, border-color .18s;
+    }
+    .input:focus-within{border-color:rgba(3,57,150,0.12);box-shadow:0 6px 14px rgba(3,57,150,0.06);}
+    .input svg {width:18px;height:18px;opacity:0.9;flex:0 0 18px;}
+    .input input{border:0;outline:0;background:transparent;font-size:15px;flex:1;color:#05263b;padding:6px 0;}
+
+    .row {display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+    .checkbox {display:flex;align-items:center;gap:8px;color:var(--muted);font-size:14px;}
+    .checkbox input{width:16px;height:16px;}
+    .link {color:var(--accent-1);text-decoration:none;font-size:14px;}
+
+    .btn {margin-top:8px;width:100%;padding:12px 18px;border-radius:12px;border:0;font-weight:700;font-size:15px;color:#fff;cursor:pointer;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));box-shadow: 0 8px 24px rgba(2,94,255,0.12);transition:transform .12s,opacity .12s;}
+    .btn:active{transform:translateY(1px);}
+    .btn[disabled]{opacity:0.7;cursor:not-allowed;transform:none;}
+
+    .error {color:var(--danger);font-size:13px;margin-top:6px;}
+    .hint {color:var(--muted);font-size:13px;}
+
+    /* password strength */
+    .pw-meter {height:8px;border-radius:999px;background:#e9f2ff;overflow:hidden;margin-top:8px;}
+    .pw-bar {height:100%;width:0%;transition:width .18s;}
+    .pw-checks {margin-top:10px;font-size:13px;color:var(--muted);display:grid;gap:6px;}
+    .pw-checks .ok{color:var(--success);font-weight:700;}
+    .small-muted{font-size:12px;color:var(--muted);}
+
+    /* toast */
+    .toast {
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      background:#fff;
+      border-radius:10px;
+      padding:12px 14px;
+      box-shadow: 0 10px 30px rgba(3,30,60,0.12);
+      display:flex;gap:12px;align-items:start;max-width:360px;
+      transform: translateY(20px) scale(.98);
+      opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;
+      z-index:999;
+    }
+    .toast.show{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+    .toast .tick {width:36px;height:36px;border-radius:8px;background:linear-gradient(180deg,#07b080,#06a46e);display:grid;place-items:center;color:#fff;font-weight:700;}
+    .toast .content {font-size:14px;color:#063043;}
+    .toast .content small{display:block;color:var(--muted);font-size:13px;margin-top:6px;}
+
+    /* decorative */
+    .bg-waves {position:absolute;left:-18%;right:-18%;bottom:-10%;height:40%;background: radial-gradient(circle at 10% 30%, rgba(6,104,212,0.06), transparent 20%), radial-gradient(circle at 90% 60%, rgba(0,119,255,0.04), transparent 20%);transform: rotate(-2deg);z-index:1;border-radius:50%;}
+
+    /* responsive */
+    
+        /* For large desktops (Above 1400px) */
+        @media (min-width: 1400px) {
+            nav {
+                width: 75%;
+            }
+
+            .hero h2 {
+                font-size: 70px;
+            }
+
+            .hero p {
+                font-size: 24px;
+            }
+
+            .card-container,
+            .fleet-container {
+                justify-content: center;
+                gap: 40px;
+            }
+        }
+
+
+    @media(min-width:880px){
+      .wrap {grid-template-columns: 1fr;}
+      .card{padding:36px 36px;}
+      .panels{ /* keep same layout */ }
+    }
+    @media(max-width:520px){
+      .card {padding:18px;}
+      h1{font-size:20px;}
+      .tab {padding:7px 12px;font-size:13px;}
+      .panel {padding-right:0;}
+    }
+
+    /* small spinner */
+    .spinner{width:16px;height:16px;border-radius:50%;border:3px solid rgba(255,255,255,0.28);border-top-color:rgba(255,255,255,0.95);animation:spin .9s linear infinite;display:inline-block;vertical-align:middle;margin-left:8px;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+   <!-- Navbar
+   <nav>
+    <div class="logo">
+        <a href="#home"><img src="https://pngfre.com/wp-content/uploads/Anchor-2.png" alt="Logo" /></a>
+        <h1>Marina-Fleet</h1>
+    </div>
+
+    <!-- Hamburger (mobile) -->
+    <!-- <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Navigation menu -->
+    <!-- <ul class="nav-menu" id="navMenu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="exploremore.html">Explore</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#fleets">Fleets</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="Contact.html">Contact</a></li>
+        <li><a href="#about-section">About</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        
+    </ul>
+</nav> --> 
+
+  <div class="page" role="main">
+    <div class="brand" aria-hidden="false">
+ 
+    </div>
+
+    <div class="card" role="region" aria-labelledby="page-title">
+      <div class="wrap">
+        <div class="switcher" role="tablist" aria-label="Sign in or create account">
+          <div id="tabSignIn" class="tab active" role="tab" aria-selected="true" tabindex="0">Sign In</div>
+          <div id="tabSignUp" class="tab" role="tab" aria-selected="false" tabindex="0">Create Account</div>
+        </div>
+
+        <div class="hero">
+          <div class="avatar" aria-hidden="true">⛵</div>
+          <h1 id="page-title">Welcome to Marina Fleet</h1>
+          <p class="sub" id="page-sub">Sign in to manage your fleet — or create a new account.</p>
+        </div>
+
+        <div class="forms" aria-live="polite">
+          <div class="panels" id="panels">
+            <!-- PANEL: SIGN IN -->
+            <div class="panel" aria-hidden="false">
+              <form id="loginForm" novalidate>
+                <div class="field">
+                  <label for="loginEmail">Email Address</label>
+                  <div class="input">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 6.5C3 5.12 4.12 4 5.5 4h13c1.38 0 2.5 1.12 2.5 2.5v11c0 1.38-1.12 2.5-2.5 2.5h-13C4.12 20 3 18.88 3 17.5v-11z" stroke="#3b6ea6" stroke-width="0.9" fill="#eaf6ff"/><path d="M21 6.5L12 12 3 6.5" stroke="#1b4b79" stroke-width="0.95" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <input id="loginEmail" name="loginEmail" type="email" placeholder="you@example.com" autocomplete="email" required />
+                  </div>
+                  <div id="loginEmailError" class="error" style="display:none"></div>
+                </div>
+
+                <div class="field">
+                  <label for="loginPassword">Password</label>
+                  <div class="input">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M7 10V8a5 5 0 0110 0v2" stroke="#1b4b79" stroke-width="0.95" stroke-linecap="round"/><rect x="4" y="10" width="16" height="10" rx="2.2" stroke="#3b6ea6" stroke-width="0.95" fill="#eaf6ff"/></svg>
+                    <input id="loginPassword" name="loginPassword" type="password" placeholder="••••••••" autocomplete="current-password" required />
+                  </div>
+                  <div id="loginPwdError" class="error" style="display:none"></div>
+                </div>
+
+                <div class="row">
+                  <label class="checkbox"><input type="checkbox" id="remember" /> Remember me</label>
+                  <a href="#" class="link" id="forgot">Forgot password?</a>
+                </div>
+
+                <button class="btn" id="loginBtn" type="submit"><span id="loginBtnText"><a href="index.html">Sign In</a></span></button>
+                <p class="hint" style="margin-top:10px;text-align:center">Don't have an account? <a href="#" id="mLinkToSignUp" class="link">Create one</a></p>
+              </form>
+            </div>
+
+            <!-- PANEL: SIGN UP -->
+            <div class="panel" aria-hidden="true">
+              <form id="signupForm" novalidate>
+                <div class="field">
+                  <label for="fullName">Full Name</label>
+                  <div class="input">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M12 12a4 4 0 100-8 4 4 0 000 8z" stroke="#1b4b79" stroke-width="0.95"/><path d="M4 20a8 8 0 0116 0" stroke="#3b6ea6" stroke-width="0.95" fill="#eaf6ff"/></svg>
+                    <input id="fullName" name="fullName" type="text" placeholder="John Smith" autocomplete="name" required />
+                  </div>
+                  <div id="nameError" class="error" style="display:none"></div>
+                </div>
+
+                <div class="field">
+                  <label for="signupEmail">Email Address</label>
+                  <div class="input">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M3 6.5C3 5.12 4.12 4 5.5 4h13c1.38 0 2.5 1.12 2.5 2.5v11c0 1.38-1.12 2.5-2.5 2.5h-13C4.12 20 3 18.88 3 17.5v-11z" stroke="#3b6ea6" stroke-width="0.9" fill="#eaf6ff"/><path d="M21 6.5L12 12 3 6.5" stroke="#1b4b79" stroke-width="0.95" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <input id="signupEmail" name="signupEmail" type="email" placeholder="captain@marinafleet.com" autocomplete="email" required />
+                  </div>
+                  <div id="signupEmailError" class="error" style="display:none"></div>
+                </div>
+
+                <div class="field">
+                  <label for="signupPassword">Password</label>
+                  <div class="input">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M7 10V8a5 5 0 0110 0v2" stroke="#1b4b79" stroke-width="0.95" stroke-linecap="round"/><rect x="4" y="10" width="16" height="10" rx="2.2" stroke="#3b6ea6" stroke-width="0.95" fill="#eaf6ff"/></svg>
+                    <input id="signupPassword" name="signupPassword" type="password" placeholder="Create a password" autocomplete="new-password" required />
+                  </div>
+
+                  <div class="pw-meter" aria-hidden="true"><div id="pwBar" class="pw-bar" style="background:linear-gradient(90deg,var(--accent-1),var(--accent-2));width:0%"></div></div>
+                  <div style="display:flex;justify-content:space-between;margin-top:6px">
+                    <div class="small-muted">Password Strength:</div>
+                    <div id="pwLabel" class="small-muted">Too weak</div>
+                  </div>
+
+                  <div class="pw-checks" id="pwChecks" aria-hidden="false">
+                    <div id="chkLen"><span id="icLen">◻</span> At least 8 characters</div>
+                    <div id="chkUC"><span id="icUC">◻</span> One uppercase letter</div>
+                    <div id="chkLC"><span id="icLC">◻</span> One lowercase letter</div>
+                    <div id="chkNum"><span id="icNum">◻</span> One number</div>
+                    <div id="chkSpec"><span id="icSpec">◻</span> One special character</div>
+                  </div>
+                  <div id="signupPwdError" class="error" style="display:none"></div>
+                </div>
+
+                <div class="field">
+                  <label for="confirmPwd">Confirm Password</label>
+                  <div class="input">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M7 10V8a5 5 0 0110 0v2" stroke="#1b4b79" stroke-width="0.95" stroke-linecap="round"/><rect x="4" y="10" width="16" height="10" rx="2.2" stroke="#3b6ea6" stroke-width="0.95" fill="#eaf6ff"/></svg>
+                    <input id="confirmPwd" name="confirmPwd" type="password" placeholder="Confirm your password" autocomplete="new-password" required />
+                  </div>
+                  <div id="confirmError" class="error" style="display:none"></div>
+                </div>
+
+                <div style="display:flex;align-items:center;gap:10px;margin-top:6px">
+                  <label class="checkbox" style="margin-bottom:0;"><input type="checkbox" id="agree" /> I accept the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a></label>
+                </div>
+                <div id="agreeError" class="error" style="display:none;margin-top:8px"></div>
+
+                <button class="btn" id="signupBtn" type="submit"><span id="signupBtnText">Create Account</span></button>
+                <p class="hint" style="margin-top:10px;text-align:center">Already have an account? <a href="#" id="mLinkToSignIn" class="link">Sign In</a></p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-waves" aria-hidden="true"></div>
+
+    <!-- toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">
+      <div class="tick">✓</div>
+      <div class="content">
+        <strong id="toastTitle">Welcome aboard, Captain! ⚓</strong>
+        <small id="toastMsg">You've successfully logged in to Marina Fleet.</small>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      // tabs & panels
+      const tabSignIn = document.getElementById('tabSignIn');
+      const tabSignUp = document.getElementById('tabSignUp');
+      const panels = document.getElementById('panels');
+      const pageTitle = document.getElementById('page-title');
+      const pageSub = document.getElementById('page-sub');
+
+      function showSignIn(){
+        tabSignIn.classList.add('active'); tabSignUp.classList.remove('active');
+        tabSignIn.setAttribute('aria-selected','true'); tabSignUp.setAttribute('aria-selected','false');
+        panels.style.transform = 'translateX(0%)';
+        pageTitle.textContent = 'Welcome to Marina Fleet';
+        pageSub.textContent = 'Sign in to manage your fleet — or create a new account.';
+        // set aria-hiddens
+        panels.querySelectorAll('.panel')[0].setAttribute('aria-hidden','false');
+        panels.querySelectorAll('.panel')[1].setAttribute('aria-hidden','true');
+      }
+      function showSignUp(){
+        tabSignUp.classList.add('active'); tabSignIn.classList.remove('active');
+        tabSignUp.setAttribute('aria-selected','true'); tabSignIn.setAttribute('aria-selected','false');
+        panels.style.transform = 'translateX(-50%)';
+        pageTitle.textContent = 'Create Account';
+        pageSub.textContent = 'Join Marina Fleet today';
+        panels.querySelectorAll('.panel')[0].setAttribute('aria-hidden','true');
+        panels.querySelectorAll('.panel')[1].setAttribute('aria-hidden','false');
+      }
+
+      tabSignIn.addEventListener('click', showSignIn);
+      tabSignUp.addEventListener('click', showSignUp);
+      tabSignIn.addEventListener('keydown', (e)=>{ if(e.key==='Enter') showSignIn(); });
+      tabSignUp.addEventListener('keydown', (e)=>{ if(e.key==='Enter') showSignUp(); });
+
+      // quick links inside forms
+      document.getElementById('mLinkToSignUp').addEventListener('click', (e)=>{ e.preventDefault(); showSignUp(); });
+      document.getElementById('mLinkToSignIn').addEventListener('click', (e)=>{ e.preventDefault(); showSignIn(); });
+
+      // toast
+      const toast = document.getElementById('toast');
+      const toastTitle = document.getElementById('toastTitle');
+      const toastMsg = document.getElementById('toastMsg');
+      function showToast(title, msg){
+        toastTitle.textContent = title;
+        toastMsg.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(()=> toast.classList.remove('show'), 4200);
+      }
+
+      // tiny helpers
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      function validEmail(v){ return emailRegex.test(v); }
+
+      // ---------- SIGNUP: password strength ----------
+      const signupPassword = document.getElementById('signupPassword');
+      const pwBar = document.getElementById('pwBar');
+      const pwLabel = document.getElementById('pwLabel');
+      const checks = {
+        len: document.getElementById('chkLen'),
+        uc: document.getElementById('chkUC'),
+        lc: document.getElementById('chkLC'),
+        num: document.getElementById('chkNum'),
+        spec: document.getElementById('chkSpec')
+      };
+      const ico = {
+        len: document.getElementById('icLen'),
+        uc: document.getElementById('icUC'),
+        lc: document.getElementById('icLC'),
+        num: document.getElementById('icNum'),
+        spec: document.getElementById('icSpec')
+      };
+
+      function scorePassword(pw){
+        let score = 0;
+        if(pw.length >= 8){ score+=1; ico.len.textContent='✓'; checks.len.classList.add('ok'); } else { ico.len.textContent='◻'; checks.len.classList.remove('ok'); }
+        if(/[A-Z]/.test(pw)){ score+=1; ico.uc.textContent='✓'; checks.uc.classList.add('ok'); } else { ico.uc.textContent='◻'; checks.uc.classList.remove('ok'); }
+        if(/[a-z]/.test(pw)){ score+=1; ico.lc.textContent='✓'; checks.lc.classList.add('ok'); } else { ico.lc.textContent='◻'; checks.lc.classList.remove('ok'); }
+        if(/\d/.test(pw)){ score+=1; ico.num.textContent='✓'; checks.num.classList.add('ok'); } else { ico.num.textContent='◻'; checks.num.classList.remove('ok'); }
+        if(/[^A-Za-z0-9]/.test(pw)){ score+=1; ico.spec.textContent='✓'; checks.spec.classList.add('ok'); } else { ico.spec.textContent='◻'; checks.spec.classList.remove('ok'); }
+        return score;
+      }
+
+      signupPassword.addEventListener('input', ()=>{
+        const v = signupPassword.value || '';
+        const s = scorePassword(v);
+        const pct = (s/5) * 100;
+        pwBar.style.width = pct + '%';
+        // color variations
+        if(s <= 2){ pwBar.style.background = 'linear-gradient(90deg,#ff7a7a,#ff5a5a)'; pwLabel.textContent='Weak'; }
+        else if(s === 3){ pwBar.style.background = 'linear-gradient(90deg,#ffb347,#ff8a00)'; pwLabel.textContent='Medium'; }
+        else if(s >= 4){ pwBar.style.background = 'linear-gradient(90deg,var(--accent-1),var(--accent-2))'; pwLabel.textContent='Strong'; }
+      });
+
+      // ---------- Signup form logic ----------
+      const signupForm = document.getElementById('signupForm');
+      const fullName = document.getElementById('fullName');
+      const signupEmail = document.getElementById('signupEmail');
+      const confirmPwd = document.getElementById('confirmPwd');
+      const agree = document.getElementById('agree');
+
+      const nameError = document.getElementById('nameError');
+      const signupEmailError = document.getElementById('signupEmailError');
+      const signupPwdError = document.getElementById('signupPwdError');
+      const confirmError = document.getElementById('confirmError');
+      const agreeError = document.getElementById('agreeError');
+
+      // helper: read/save accounts in localStorage (demo only)
+      function getAccounts(){
+        try{ return JSON.parse(localStorage.getItem('marina_accounts') || '[]'); }catch(e){ return []; }
+      }
+      function saveAccount(acc){
+        const list = getAccounts();
+        list.push(acc);
+        localStorage.setItem('marina_accounts', JSON.stringify(list));
+      }
+      function findAccountByEmail(email){
+        return getAccounts().find(a => a.email && a.email.toLowerCase() === email.toLowerCase());
+      }
+
+      signupForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        // clear
+        [nameError, signupEmailError, signupPwdError, confirmError, agreeError].forEach(x=>{ x.style.display='none'; x.textContent=''; });
+
+        const nameVal = (fullName.value || '').trim();
+        const mail = (signupEmail.value || '').trim();
+        const pw = signupPassword.value || '';
+        const cpw = confirmPwd.value || '';
+        let ok = true;
+
+        if(!nameVal){
+          nameError.textContent = 'Full name is required.'; nameError.style.display='block'; ok=false;
+        } else if(nameVal.length < 2){ nameError.textContent='Enter a valid name.'; nameError.style.display='block'; ok=false; }
+
+        if(!mail){ signupEmailError.textContent='Email is required.'; signupEmailError.style.display='block'; ok=false; }
+        else if(!validEmail(mail)){ signupEmailError.textContent='Enter a valid email.'; signupEmailError.style.display='block'; ok=false; }
+        else if(findAccountByEmail(mail)){ signupEmailError.textContent='An account with this email already exists.'; signupEmailError.style.display='block'; ok=false; }
+
+        const score = scorePassword(pw);
+        if(!pw){ signupPwdError.textContent='Password is required.'; signupPwdError.style.display='block'; ok=false; }
+        else if(score < 3){ signupPwdError.textContent='Password is too weak. Follow the checklist.'; signupPwdError.style.display='block'; ok=false; }
+
+        if(!cpw){ confirmError.textContent='Please confirm your password.'; confirmError.style.display='block'; ok=false; }
+        else if(pw !== cpw){ confirmError.textContent='Passwords do not match.'; confirmError.style.display='block'; ok=false; }
+
+        if(!agree.checked){ agreeError.textContent='You must accept the Terms and Privacy Policy.'; agreeError.style.display='block'; ok=false; }
+
+        if(!ok) return;
+
+        // simulate create account flow
+        const signupBtn = document.getElementById('signupBtn');
+        const signupBtnText = document.getElementById('signupBtnText');
+        signupBtn.disabled = true;
+        signupBtnText.textContent = 'Creating...';
+        const spinner = document.createElement('span'); spinner.className='spinner'; spinner.id='spS';
+        signupBtn.appendChild(spinner);
+
+        setTimeout(()=>{
+          // save (demo)
+          saveAccount({ name: nameVal, email: mail, password: pw });
+          signupBtn.disabled = false;
+          signupBtnText.textContent = 'Create Account';
+          const spS = document.getElementById('spS'); if(spS) spS.remove();
+
+          // show toast
+          showToast('Account created ✅', 'Your Marina Fleet account was created successfully.');
+
+          // auto switch to sign-in and prefill email
+          showSignIn();
+          document.getElementById('loginEmail').value = mail;
+          document.getElementById('loginPassword').value = '';
+        }, 900);
+      });
+
+      // ---------- Login form logic ----------
+      const loginForm = document.getElementById('loginForm');
+      const loginEmail = document.getElementById('loginEmail');
+      const loginPassword = document.getElementById('loginPassword');
+      const loginEmailError = document.getElementById('loginEmailError');
+      const loginPwdError = document.getElementById('loginPwdError');
+
+      loginForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        loginEmailError.style.display='none'; loginPwdError.style.display='none';
+        const mail = (loginEmail.value || '').trim();
+        const pw = loginPassword.value || '';
+        let ok = true;
+        if(!mail){ loginEmailError.textContent='Email is required.'; loginEmailError.style.display='block'; ok=false; }
+        else if(!validEmail(mail)){ loginEmailError.textContent='Enter a valid email.'; loginEmailError.style.display='block'; ok=false; }
+        if(!pw){ loginPwdError.textContent='Password is required.'; loginPwdError.style.display='block'; ok=false; }
+        if(!ok) return;
+
+        const loginBtn = document.getElementById('loginBtn');
+        const loginBtnText = document.getElementById('loginBtnText');
+        loginBtn.disabled = true;
+        loginBtnText.textContent = 'Signing In...';
+        const sp = document.createElement('span'); sp.className='spinner'; sp.id='spL';
+        loginBtn.appendChild(sp);
+
+        setTimeout(()=>{
+          loginBtn.disabled = false;
+          loginBtnText.textContent = 'Sign In';
+          const spl = document.getElementById('spL'); if(spl) spl.remove();
+
+          const acc = findAccountByEmail(mail);
+          if(!acc || acc.password !== pw){
+            loginPwdError.textContent = 'Invalid email or password.'; loginPwdError.style.display='block';
+            return;
+          }
+
+          // store remembered email if requested
+          if(document.getElementById('remember').checked){
+            try{ localStorage.setItem('marina_user_email', mail); }catch(e){}
+          } else { try{ localStorage.removeItem('marina_user_email'); }catch(e){} }
+
+          // success toast
+          showToast('Welcome aboard, Captain! ⚓', 'You\'ve successfully logged in to Marina Fleet.');
+          // for demo: clear password field
+          loginPassword.value = '';
+        }, 900);
+      });
+
+      // forgot password demo
+      document.getElementById('forgot').addEventListener('click', function(ev){
+        ev.preventDefault();
+        const addr = prompt('Enter your email to receive a password reset link:');
+        if(addr && validEmail(addr.trim())){
+          alert('For demo: a reset link would be sent to: ' + addr.trim());
+        } else if(addr){
+          alert('Please enter a valid email address.');
+        }
+      });
+
+      // prefill remembered email
+      try{
+        const s = localStorage.getItem('marina_user_email');
+        if(s){ loginEmail.value = s; document.getElementById('remember').checked = true; }
+      }catch(e){}
+
+      // small inline validation (signup)
+      fullName.addEventListener('blur', ()=>{ if(!fullName.value.trim()) { nameError.textContent='Full name is required.'; nameError.style.display='block'; } else { nameError.style.display='none'; } });
+      signupEmail.addEventListener('blur', ()=>{ if(!signupEmail.value.trim()) { signupEmailError.textContent='Email required.'; signupEmailError.style.display='block'; } else if(!validEmail(signupEmail.value.trim())) { signupEmailError.textContent='Invalid email.'; signupEmailError.style.display='block'; } else { signupEmailError.style.display='none'; } });
+      confirmPwd.addEventListener('blur', ()=>{ if(confirmPwd.value && signupPassword.value !== confirmPwd.value){ confirmError.textContent='Passwords do not match.'; confirmError.style.display='block'; } else { confirmError.style.display='none'; } });
+
+      // keyboard Enter behavior
+      document.querySelectorAll('input').forEach(inp=>{
+        inp.addEventListener('keydown', function(e){
+          if(e.key === 'Enter'){
+            const form = inp.closest('form');
+            if(form) form.requestSubmit();
+          }
+        });
+      });
+
+      // initialize on load
+      showSignIn();
+    })();
+
+
+
+    // When the user clicks the Sign Up button
+    document.getElementById('signupBtn').onclick = function() {
+            // Get the username and password input values
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Check if both fields are filled
+            if (username === "" || password === "") {
+                alert("Please fill all fields!");
+                return;  // Stop execution if any field is empty
+            }
+
+            // If both fields are filled, redirect to the Home page
+            window.location.href = "index.html";  // Replace with your actual Home page URL if different
+        };
+
+        
+    </script>
+  </script>
+</body>
+</html>
+vv

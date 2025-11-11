@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="icon" type="image/x-icon" href="https://pngfre.com/wp-content/uploads/Anchor-2.png">
+    <title>MARINA-FLEET| Luxury Boats & Rentals</title>
+
+    <style>
+        /* ------------------------------ Base Styles ------------------------------ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #001f3f;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ------------------------------ Glass NavBar ------------------------------ */
+        nav {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 0.6rem 1.5rem;
+            position: fixed;
+            width: 80%;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 1.5rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+            object-fit: contain;
+            border: 2px solid white;
+            transition: border 0.3s ease;
+        }
+
+        .logo img:hover {
+            border: 2px solid black;
+        }
+
+        .logo h1 {
+            color: rgb(49, 43, 48);
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Navigation list - desktop */
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-menu li a {
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+            background: linear-gradient(90deg, #1c03ff, #05428d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: rgb(39, 28, 28);
+            bottom: 0;
+            left: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu li a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Hamburger button (hidden on desktop) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            width: 36px;
+            height: 36px;
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: #001f3f;
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.25s ease;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        /* ------------------------------ Hero Section ------------------------------ */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+        }
+
+        .hero h2 {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        .line1 {
+            animation: slideInLeft 2s ease-out forwards;
+        }
+
+        .mahan {
+            color: yellow;
+            animation: slideInRight 2s ease-out forwards;
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #cddff0;
+            animation: fadeInUp 1.2s ease-in-out;
+        }
+
+        .hero ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding-left: 0;
+        }
+
+        .hero a {
+            background-color: #FFD700;
+            color: #001f3f;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: 0.3s;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            box-shadow: 1px 3px 5px 5px rgba(0, 255, 242, 0.856);
+            transform: scale(1.05);
+        }
+
+        /* Glass blur button (View Fleet style) */
+        .glass-blur {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .glass-blur:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+            color: white;
+        }
+
+        /* ------------------------------ Services ------------------------------ */
+        #services {
+            background-color: #f4f4f4;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        #services h2 {
+            font-size: 40px;
+            color: #001f3f;
+            margin-bottom: 40px;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 25px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-bottom: 10px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            flex: 0 0 300px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .card a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .card a:hover {
+            background-color: #030c18;
+        }
+
+        /* ------------------------------ Fleets Section ------------------------------ */
+        #fleets {
+            background-color: #f9f9f9;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        #fleets h2 {
+            font-size: 40px;
+            color: #001f3f;
+            margin-bottom: 40px;
+        }
+
+        .fleet-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-bottom: 20px;
+        }
+
+        .fleet-container::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .fleet-container::-webkit-scrollbar-thumb {
+            background: #74ebd5;
+            border-radius: 5px;
+        }
+
+        .fleet-container::-webkit-scrollbar-track {
+            background: #ddd;
+        }
+
+        .fleet-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            flex: 0 0 300px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .fleet-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .fleet-card-content {
+            padding: 20px;
+        }
+
+        .fleet-card:hover {
+            transform: translateY(-13px);
+        }
+
+        .btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0059ff;
+        }
+
+        /* About Ka kam */
+        .about-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            max-width: 1200px;
+            margin: auto;
+            border-color: #74ebd5;
+            border-radius: 25px;
+            margin: 20px;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 320px;
+        }
+
+        .about-text h2 {
+            color: #0078b7;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 16px;
+            color: #3a526b;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .about {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-form,
+            .contact-info {
+                width: 100%;
+            }
+        }
+
+        .stats-grid {
+            flex: 1;
+            min-width: 320px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-box {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            padding: 35px 20px;
+            transition: 0.3s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 18px rgba(168, 8, 8, 0.637);
+        }
+
+        .icon {
+            background: linear-gradient(135deg, #0078d7, #00aaff);
+            color: white;
+            font-size: 28px;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 12px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-box h2 {
+            font-size: 26px;
+            color: #0b2e59;
+            margin-bottom: 5px;
+        }
+
+        .stat-box p {
+            font-size: 15px;
+            color: #4a6480;
+        }
+
+        @media (max-width: 900px) {
+            .about {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Form Ka Kam */
+
+        h2 {
+            text-align: center;
+            font-size: 36px;
+            color: #0078b7;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #3a526b;
+            margin-bottom: 50px;
+        }
+
+        .contact-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Left form */
+        .contact-form {
+            flex: 1;
+            min-width: 350px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-form label {
+            display: block;
+            font-weight: 500;
+            color: #003b6f;
+            margin-bottom: 6px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cddff0;
+            border-radius: 6px;
+            outline: none;
+            font-size: 15px;
+            margin-bottom: 20px;
+            background-color: #f6f9fc;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #0078d7;
+            background-color: white;
+        }
+
+        .contact-form textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .contact-form button {
+            width: 100%;
+            background: linear-gradient(135deg, #0078d7, #00aaff);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .contact-form button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Right info boxes */
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .info-box {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .info-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 14px rgb(121, 6, 6);
+        }
+
+        .info-icon {
+            background: linear-gradient(135deg, #0078d7, #00aaff);
+            color: white;
+            font-size: 20px;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .info-content h4 {
+            font-size: 17px;
+            color: #0b2e59;
+            margin-bottom: 5px;
+        }
+
+        .info-content p {
+            color: #4a6480;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 900px) {
+            .contact-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-form,
+            .contact-info {
+                width: 100%;
+            }
+        }
+
+        /* ------------------------------ Footer ------------------------------ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #eef5fb;
+        }
+
+        footer {
+            background-color: #0066cc;
+            color: #ffffff;
+            padding: 60px 5% 20px 5%;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 1200px;
+            margin: auto;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 17px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .footer-column p,
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+            transform: translateX(3px);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo span {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            font-size: 18px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #00bfff;
+            transform: scale(1.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+        }
+
+        /* ------------------------------ RESPONSIVE MEDIA QUERIES ------------------------------ */
+
+        /* For large desktops (Above 1400px) */
+        @media (min-width: 1400px) {
+            nav {
+                width: 75%;
+            }
+
+            .hero h2 {
+                font-size: 70px;
+            }
+
+            .hero p {
+                font-size: 24px;
+            }
+
+            .card-container,
+            .fleet-container {
+                justify-content: center;
+                gap: 40px;
+            }
+        }
+
+        /* For laptops (992px - 1399px) */
+        @media (max-width: 1399px) and (min-width: 992px) {
+            nav {
+                width: 85%;
+            }
+
+            .hero h2 {
+                font-size: 55px;
+            }
+
+            .card-container,
+            .fleet-container {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .about-section {
+                flex-wrap: wrap;
+                text-align: center;
+            }
+        }
+
+        /* For tablets (768px - 991px) */
+        @media (max-width: 991px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                width: 90%;
+                padding: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .hero {
+                height: 90vh;
+                padding-top: 100px;
+            }
+
+            .hero h2 {
+                font-size: 42px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .card-container,
+            .fleet-container {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .about-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            footer .footer-container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+        }
+
+        /* For mobile devices (480px - 767px) */
+        @media (max-width: 767px) {
+            nav {
+                width: 95%;
+                flex-direction: row;
+                text-align: left;
+                padding: 0.6rem 0.9rem;
+                align-items: center;
+            }
+
+            .logo h1 {
+                font-size: 18px;
+            }
+
+            /* show hamburger, hide desktop nav */
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                /* hidden by default on mobile */
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                top: calc(100% + 10px);
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(6px);
+                width: 90%;
+                max-width: 420px;
+                border-radius: 12px;
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+                flex-direction: column;
+                gap: 0;
+                overflow: hidden;
+                max-height: 0;
+                transition: max-height 0.35s ease, opacity 0.25s ease;
+                opacity: 0;
+            }
+
+            .nav-menu.open {
+                max-height: 480px;
+                /* enough to show items */
+                opacity: 1;
+            }
+
+            .nav-menu li {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            }
+
+            .nav-menu li a {
+                display: block;
+                padding: 14px 18px;
+                -webkit-text-fill-color: initial;
+                background: none;
+                color: #001f3f;
+                text-align: left;
+            }
+
+            .nav-menu li a::after {
+                display: none;
+            }
+
+            .hero {
+                height: 80vh;
+                padding: 0 10px;
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .card,
+            .fleet-card {
+                width: 90%;
+                max-width: 350px;
+            }
+
+            .card-container,
+            .fleet-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-section {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-form,
+            .contact-info {
+                width: 100%;
+            }
+
+            footer {
+                text-align: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+        }
+
+        /* For extra small devices (below 400px) */
+        @media (max-width: 400px) {
+            nav {
+                padding: 0.5rem;
+                width: 98%;
+            }
+
+            .hero h2 {
+                font-size: 26px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .hero a {
+                font-size: 13px;
+                padding: 10px 20px;
+            }
+
+            .card,
+            .fleet-card {
+                width: 95%;
+            }
+
+            .about-text p {
+                font-size: 14px;
+            }
+
+            .footer-column h3 {
+                font-size: 15px;
+            }
+
+            .footer-column p,
+            .footer-column a {
+                font-size: 13px;
+            }
+        }
+
+        /* small accessibility tweak for focus */
+        .hamburger:focus {
+            outline: 3px solid rgba(0, 120, 215, 0.2);
+            outline-offset: 2px;
+        }
+
+        .nav-menu a:focus {
+            background: rgba(0, 120, 215, 0.05);
+        }
+
+        /* interactive feedback end */
+    </style>
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">
+            <a href="#home"><img src="https://pngfre.com/wp-content/uploads/Anchor-2.png" alt="Logo" /></a>
+            <h1>Marina-Fleet</h1>
+        </div>
+
+        <!-- Hamburger (mobile) -->
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Navigation menu -->
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="exploremore.html">Explore</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#fleets">Fleets</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+            <li><a href="#about-section">About</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
+            <li><a href="login.html">login/signup</a></li>
+            
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <img src="./images/Home IMage.jpg" alt="OceanWave Home" class="hero-bg" style="filter: brightness(0.60);" />
+        <div class="hero-content">
+            <h2 class="line1" style="color: white;">Navigate Your Dreams</h2>
+            <h2 class="mahan">With Marine Fleet</h2>
+            <p>Experience luxury and adventure on the open waters. Premium vessels for every journey.</p>
+            <ul>
+                <li><a href="#services">Our Services ↧</a></li>
+                <li><a href="#fleets" class="glass-blur">View Fleet ↧ </a></li>
+                <li><a href="exploremore.html" class="glass-blur" style="">Explore More ⟶</a></li>
+            </ul>
+        </div>
+    </section>
+    <!---Explore More-->>
+
+
+    <!-- Services -->
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="card-container">
+            <div class="card">
+                <img src="./Images/yatch charter.png" alt="">
+                <div class="card-content">
+                    <h3>Yatch Charters</h3>
+                    <p>Luxury vessels for every occasion.</p><a href="yatch charters.html">Read More 📗</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="./Images/guided.png" alt="">
+                <div class="card-content">
+                    <h3>Guided Tours</h3>
+                    <p>“Jobs fill your pocket, but adventures fill your soul.”</p><a href="guidedtour.html">Read More
+                        📕</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="./Images/fishing.png" alt="">
+                <div class="card-content">
+                    <h3>Fishing Expeditions</h3>
+                    <p>Hooked on the thrill of the open sea.”</p><a href="fishing.html">Read More 📘</a>
+                </div>
+            </div>
+            <div class="card">
+                <img src="./Images/events.png" alt="">
+                <div class="card-content">
+                    <h3>Corporate Events</h3>
+                    <p>“Innovate. Collaborate. Celebrate.”</p><a href="corporate.html">Read More 📒</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fleets -->
+    <section id="fleets">
+        <h2>Our Fleets</h2>
+        <div class="fleet-container">
+            <div class="fleet-card">
+                <img src="https://thumbs.dreamstime.com/b/majesty-seas-key-west-28663083.jpg" alt="Ocean Majesty">
+                <div class="fleet-card-content">
+                    <h3>Ocean Majesties</h3>
+                    <p>Experience ultimate luxury on our flagship yacht.</p>
+                    <a href="oceanmajesties.html" class="btn">Explore Now ➯</a>
+                </div>
+            </div>
+
+            <div class="fleet-card">
+                <img src="https://image.yachtcharterfleet.com/w1277/h618/qh/ca/m2/kef1434de/vessel/resource/10925/charter-waverunner-yacht.jpg"
+                    alt="Wave Runner">
+                <div class="fleet-card-content">
+                    <h3>Wave Runners</h3>
+                    <p>Feel the thrill of high-speed cruising.</p>
+                    <a href="waverunners.html" class="btn">Explore Now ➯</a>
+                </div>
+            </div>
+
+            <div class="fleet-card">
+                <img src="https://mare-yachting.com/wp-content/uploads/2024/08/VentoEstivo-Website-64.jpg"
+                    alt="Sunset Sailor">
+                <div class="fleet-card-content">
+                    <h3>Sunset Sailors</h3>
+                    <p>Perfect for elegant evening sails.</p>
+                    <a href="sunsetsailors.html" class="btn">Explore Now ➯</a>
+                </div>
+            </div>
+
+            <div class="fleet-card">
+                <img src="https://www.burgessyachts.com/web/vb/crop/5132006/y_-1_full.jpg?width=1096&format=webp&quality=60"
+                    alt="Deep Blue">
+                <div class="fleet-card-content">
+                    <h3>Luxury Yatchs</h3>
+                    <p>“Sail beyond luxury.”</p>
+                    <a href="luxuryyatch.html" class="btn">Explore Now ➯</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Ka Kam -->
+    <center>
+        <section class="about-section">
+            <div class="about-text">
+                <h2>About Marina Fleet</h2>
+                <p>For over 25 years, Marina Fleet has been the premier choice for luxury maritime experiences. Our
+                    commitment to excellence, safety, and customer satisfaction sets us apart in the industry.</p>
+                <p>We offer a diverse fleet of meticulously maintained vessels, from sleek speedboats to luxurious
+                    yachts, each equipped with modern amenities and operated by experienced professionals.</p>
+                <p>Whether you're planning a corporate event, celebrating a special occasion, or simply seeking
+                    adventure on the open water, Marina Fleet delivers unforgettable experiences.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="icon">⛵</div>
+                    <h2>50+</h2>
+                    <p>Premium Vessels</p>
+                </div>
+
+                <div class="stat-box">
+                    <div class="icon">👥</div>
+                    <h2>10K+</h2>
+                    <p>Happy Clients</p>
+                </div>
+
+                <div class="stat-box">
+                    <div class="icon">🎖️</div>
+                    <h2>25+</h2>
+                    <p>Years Experience</p>
+                </div>
+
+                <div class="stat-box">
+                    <div class="icon">📈</div>
+                    <h2>98%</h2>
+                    <p>Satisfaction Rate</p>
+                </div>
+            </div>
+    </center>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo"><span>⚓</span>Marina Fleet</div>
+                <p>Your trusted partner for luxury maritime experiences since 2003.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="index.html">Our Fleet</a>
+                <a href="index.html">Services</a>
+                <a href="index.html">About</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Services</h3>
+                <a href="yatch charters.html">Yacht Charters</a>
+                <a href="guidedtour.html">Guided Tours</a>
+                <a href="fishing.html">Fishing Expeditions</a>
+                <a href="corporate.html">Corporate Events</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="index.html">🌐</a>
+                    <a href="index.html">📷</a>
+                    <a href="index.html">🐦</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2025 Marina Fleet. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger toggle for dropdown menu (mobile)
+        (function () {
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
+
+            function toggleMenu() {
+                const isOpen = navMenu.classList.toggle('open');
+                hamburger.classList.toggle('open', isOpen);
+                hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            }
+
+            hamburger.addEventListener('click', toggleMenu);
+
+            // Close the menu when clicking outside (mobile)
+            document.addEventListener('click', function (e) {
+                if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                    if (navMenu.classList.contains('open')) {
+                        navMenu.classList.remove('open');
+                        hamburger.classList.remove('open');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            });
+
+            // Close menu on link click (so menu collapses after navigation)
+            navMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('open')) {
+                        navMenu.classList.remove('open');
+                        hamburger.classList.remove('open');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+
+            // Optional: close menu on Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && navMenu.classList.contains('open')) {
+                    navMenu.classList.remove('open');
+                    hamburger.classList.remove('open');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+    </script>
+</body>
+
+</html>

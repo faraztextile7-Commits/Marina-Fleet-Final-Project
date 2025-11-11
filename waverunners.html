@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="icon" type="image/x-icon" href="https://pngfre.com/wp-content/uploads/Anchor-2.png">
+
+    <title>Marina Fleet</title>
+    <style>
+        /* ------------------------------ Base Styles ------------------------------ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #001f3f;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ------------------------------ Glass NavBar ------------------------------ */
+        nav {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 2rem;
+            position: fixed;
+            width: 80%;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 2rem;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+            object-fit: contain;
+            border: 2px solid white;
+            transition: border 0.3s ease;
+        }
+
+        .logo img:hover {
+            border: 2px solid black;
+        }
+
+        .logo h1 {
+            color: rgb(49, 43, 48);
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        nav ul li a {
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+            background: linear-gradient(90deg, #1c03ff, #05428d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: rgb(39, 28, 28);
+            bottom: 0;
+            left: 50%;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* ------------------------------ Search Bar ------------------------------ */
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 5px 15px;
+            border: 1px solid rgba(0, 191, 255, 0.3);
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #001f3f;
+            font-size: 15px;
+            width: 180px;
+        }
+
+        .search-box input::placeholder {
+            color: #444;
+        }
+
+        /* ------------------------------ Hero ------------------------------ */
+        .hero {
+            text-align: center;
+            padding: 150px 20px 60px;
+        }
+
+        .hero h2 {
+            font-size: 45px;
+            color: #05428d;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* ------------------------------ Fleet ------------------------------ */
+        .fleet {
+            padding: 50px 5%;
+            text-align: center;
+        }
+
+        .fleet h2 {
+            color: #05428d;
+            margin-bottom: 40px;
+            font-size: 34px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: 0.4s;
+            animation: fadeUp 1s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .card-content h3 {
+            color: #05428d;
+            margin-bottom: 8px;
+        }
+
+        .card-content p {
+            color: #333;
+            font-size: 14px;
+        }
+
+        .book-btn {
+            margin-top: 10px;
+            background: linear-gradient(90deg, #1c03ff, #05428d);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .book-btn:hover {
+            background: #001f3f;
+        }
+
+        /* ------------------------------ Popup ------------------------------ */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px 30px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+            color: #001f3f;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .modal-content h3 {
+            color: #05428d;
+            margin-bottom: 10px;
+        }
+
+        .modal-content p {
+            margin: 8px 0;
+        }
+
+        .close-btn {
+            background: #05428d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            background: #1c03ff;
+        }
+
+        /* ------------------------------ No Results ------------------------------ */
+        #noResults {
+            display: none;
+            color: #ff3b3b;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+
+        /* ------------------------------ Footer ------------------------------ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #eef5fb;
+        }
+
+        footer {
+            background-color: #0066cc;
+            color: #ffffff;
+            padding: 60px 5% 20px 5%;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            max-width: 1200px;
+            margin: auto;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 17px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .footer-column p,
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+            transform: translateX(3px);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .footer-logo span {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            font-size: 18px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #00bfff;
+            transform: scale(1.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+        }
+
+        /* ------------------------------ Animations ------------------------------ */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* ------------------------------ Hamburger & Mobile Nav ------------------------------ */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: #001f3f;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-wrap: wrap;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            nav ul {
+                width: 100%;
+                flex-direction: column;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease;
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: 15px;
+                margin-top: 10px;
+            }
+
+            nav ul.show {
+                max-height: 500px;
+            }
+
+            nav ul li {
+                text-align: center;
+                padding: 10px 0;
+            }
+
+            .search-box {
+                width: 100%;
+                justify-content: center;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">
+            <a href="index.html"><img src="https://pngfre.com/wp-content/uploads/Anchor-2.png" alt="Logo" /></a>
+            <h1>Marina-Fleet</h1>
+        </div>
+        <!-- Hamburger -->
+        <div class="hamburger" id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="exploremore.html">Explore</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#fleets">Fleets</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+            <li><a href="#about-section">About</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search boats..." />
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <h2>Explore the Wave Runners</h2>
+        <p>Discover and book your perfect boat or wave runner today.</p>
+    </section>
+
+    <!-- Fleet Cards -->
+    <section class="fleet" id="fleets">
+        <h2>Our Fleet Collection</h2>
+        <div class="card-container" id="fleetContainer">
+            <!-- JS will inject cards -->
+        </div>
+        <p id="noResults">🚫 No results found</p>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <h3 id="modalTitle"></h3>
+            <p id="modalLength"></p>
+            <p id="modalPrice"></p>
+            <p id="modalCapacity"></p>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo"><span>⚓</span>Marina Fleet</div>
+                <p>Your trusted partner for luxury maritime experiences since 2003.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="index.html">Our Fleet</a>
+                <a href="index.html">Services</a>
+                <a href="index.html">About</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Services</h3>
+                <a href="yatch charters.html">Yacht Charters</a>
+                <a href="guidedtour.html">Guided Tours</a>
+                <a href="fishing.html">Fishing Expeditions</a>
+                <a href="corporate.html">Corporate Events</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="index.html">🌐</a>
+                    <a href="index.html">📷</a>
+                    <a href="index.html">🐦</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2025 Marina Fleet. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        const boats = [
+            { name: "Captain Bota", img: "https://img.liveaboard.com/picture_library/boat/5833/captain-bota-2.jpg?tr=w-857,h-570,q-40,dpr-1.5", length: "25ft", price: "$500/hr", capacity: "25 people" },
+            { name: "MS Deluxe", img: "https://www.mycroatiacruise.com/storage/ships/Captain_Bota_ext-1-3.jpg ", length: "460ft", price: "$25000/hr", capacity: "1300people" },
+            { name: "Wave Master", img: "https://static.vesselfinder.net/ship-photo/1009871-319804000-65fe847ad8e32de0f782f36834a10a60/1?v1", length: "40ft", price: "$3000/hr", capacity: "50 people" },
+            { name: "Blue Jet", img: "https://photos.superyachtapi.com/download/357208/extra-large", length: "50 ft", price: "$600/hr", capacity: "30 people" },
+            { name: "Marina Blazer", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQULfV-y1oj-ajv1io7izjqpCk9g0FV4FQEULPGIw99qLowJa3wU-vg4kM-FfqWFBi5-pg&usqp=CAU", length: "47ft", price: "$800/hr", capacity: "30 people" },
+            { name: "Jet Storm", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgAaD3FTsz-hCVRpKpXe2woJIDUD59y6IOOQ&s", length: "10ft", price: "$85/hr", capacity: "6 people" },
+            { name: "WaveEdge", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOyBEJU-6hpEV_wozYybFJLJVrgpYZzkQ73A&s", length: "50ft", price: "$800/hr", capacity: "18 people" },
+            { name: "SeaBlitz", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxHYsc00nilVxMvlL9elFjKGZlKv_DHhJ7rg&s", length: "45 ft", price: "$520/hr", capacity: "25 people" },
+            { name: "Neptune Glide", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrMc1ZeDIOYTwqWNbxg8153UZXj556_WtQCg&s", length: "90 ft", price: "$1400/hr", capacity: "210 people" },
+            { name: "ThunderWave", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5IRwljN6U9Ng0QxxEfQLnMh8YKQ09tHhgsg&s", length: "120ft", price: "$70000/hr", capacity: "190 people" },
+            { name: "Aqua Pearl", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrDnkeRndeOOo0reb4iKgKRhmS85bZAguxPLF3IsDIO9jvWZi8sBm7jrkNcvxzF0nyDk0&usqp=CAU", length: "15 ft", price: "$580/hr", capacity: "15 people" },
+            { name: "Crystal Wave", img: "https://bluewaterboatrental.com/wp-content/uploads/2021/02/DSC09729.jpg", length: "5 ft", price: "$50/hr", capacity: "2 people" },
+        ];
+
+        const container = document.getElementById("fleetContainer");
+        boats.forEach((boat) => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+        <img src="${boat.img}" alt="${boat.name}">
+        <div class="card-content">
+          <h3>${boat.name}</h3>
+          <p>${boat.length} • ${boat.capacity}</p>
+          <button class="book-btn" onclick='openModal("${boat.name}", "${boat.length}", "${boat.price}", "${boat.capacity}")'>Book Now</button>
+        </div>`;
+            container.appendChild(card);
+        });
+
+        const modal = document.getElementById("infoModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalLength = document.getElementById("modalLength");
+        const modalPrice = document.getElementById("modalPrice");
+        const modalCapacity = document.getElementById("modalCapacity");
+
+        function openModal(name, length, price, capacity) {
+            modalTitle.textContent = name;
+            modalLength.textContent = `Length: ${length}`;
+            modalPrice.textContent = `Price: ${price}`;
+            modalCapacity.textContent = `Capacity: ${capacity}`;
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = (e) => {
+            if (e.target == modal) modal.style.display = "none";
+        };
+
+        const searchInput = document.getElementById("searchInput");
+        searchInput.addEventListener("input", () => {
+            const filter = searchInput.value.toLowerCase();
+            let visible = 0;
+            document.querySelectorAll(".card").forEach(card => {
+                const title = card.querySelector("h3").textContent.toLowerCase();
+                if (title.includes(filter)) {
+                    card.style.display = "block";
+                    visible++;
+                } else card.style.display = "none";
+            });
+            document.getElementById("noResults").style.display = visible ? "none" : "block";
+        });
+
+        // Hamburger toggle
+        const hamburger = document.getElementById("hamburger");
+        const navLinks = document.querySelector("nav ul");
+
+        hamburger.addEventListener("click", () => {
+            navLinks.classList.toggle("show");
+            hamburger.classList.toggle("active");
+        });
+    </script>
+</body>
+
+</html>
